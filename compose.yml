@@ -83,7 +83,7 @@ services:
 
 networks:
   mynetwork:
-    driver: bridge
+    driver: overlay
 voumes:
    mydata:
   
