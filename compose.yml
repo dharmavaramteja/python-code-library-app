@@ -1,24 +1,16 @@
 ---
 services:
   db:
-    image: dharmavaramteja/python-oct:db
+    image: dharmavaramteja/python:dbimage 
     ports:
       - "3306:3306"
     volumes:
       - mydata: /var/lib/sql/
     networks:
       - mynetwork
-    deploy:
-     resources :
-      reservations :
-           cpus: '0.25'
-          memory : 100M
-       limits:
-           cpus: "0.25"
-           memory: 200M
 
   auth_service:
-    image: dharmavaramteja/python-oct:auth
+    image: dharmavaramteja/python:authimage
     ports:
       - "5001:5001"
     networks:
@@ -33,47 +25,24 @@ services:
            memory: 200M
           
   book_service:
-    image: dharmavaramteja/python-oct:book
+    image: dharmavaramteja/python:bookimage
     ports:
       - "5002:5002"
     networks:
       - mynetwork
-    deploy:
-     resources :
-       reservations :
-           cpus: "0.25"
-          memory : 100M  
-       limits:
-           cpus: "0.25"
-           memory: 200M
            
   borrow_service:
-    image: dharmavaramteja/python-oct:borrow
+    image: dharmavaramteja/python:borrowimage
     ports:
       - "5003:5003"
     networks:
       - mynetwork
-    deploy:
-     resources :
-       reservations :
-           cpus: "0.25"
-          memory : 100M  
-       limits:
-           cpus: "0.25"
-           memory: 200M
 
   frontend:
-    image: dharmavaramteja/python-oct:frontend
+    image: harmavaramteja/python:frontend
     ports:
       - "5000:5000"
-    deploy:
-     resources :
-       reservations :
-           cpus: "0.25"
-          memory : 100M  
-       limits:
-           cpus: "0.25"
-           memory: 200M
+   
 
 networks:
   mynetwork:
