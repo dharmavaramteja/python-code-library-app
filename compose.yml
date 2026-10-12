@@ -1,7 +1,7 @@
 ---
 services:
   db:
-    image:  dharmavaramteja/python:dbimage
+    image:  dharmavaramteja/python:db
     deploy:
       replicas: 1
     ports:
