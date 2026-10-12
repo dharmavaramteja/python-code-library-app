@@ -4,8 +4,6 @@ services:
     image: dharmavaramteja/python:dbimage 
     ports:
       - "3306:3306"
-    volumes:
-      - mydata: /var/lib/sql/
     networks:
       - mynetwork
     deploy:
@@ -50,6 +48,3 @@ services:
 networks:
   mynetwork:
     driver: overlay
-volumes:
-   mydata:
-  
