@@ -1,49 +1,59 @@
 ---
 services:
   db:
-    image: dharmavaramteja/python:dbimage 
+    image:  dharmavaramteja/python:dbimage
+    deploy:
+      replicas: 1
     ports:
       - "3306:3306"
     networks:
       - mynetwork
-    deploy:
-      replicas: 3
 
   auth_service:
-    image: dharmavaramteja/python:authimage
+    image:  dharmavaramteja/python:authimage
+    deploy:
+      replicas: 1
     ports:
       - "5001:5001"
     networks:
       - mynetwork
-    deploy:
-      replicas: 3
+    depends_on:
+      - db
+    
 
-          
   book_service:
     image: dharmavaramteja/python:bookimage
+    deploy:
+      replicas: 1
     ports:
       - "5002:5002"
     networks:
       - mynetwork
-    deploy:
-      replicas: 2
-           
+    depends_on:
+      - db
   borrow_service:
     image: dharmavaramteja/python:borrowimage
+    deploy:
+      replicas: 1
     ports:
       - "5003:5003"
     networks:
       - mynetwork
-    deploy:
-      replicas: 3
+    depends_on:
+      - db
 
   frontend:
-    image: harmavaramteja/python:frontend
+    image: dharmavaramteja/python:frontend
+    deploy:
+      replicas: 1
     ports:
       - "5000:5000"
-    deploy:
-      replicas: 2
-   
+    networks:
+      - mynetwork
+    depends_on:
+      - auth_service
+      - book_service
+      - borrow_service
 
 networks:
   mynetwork:
