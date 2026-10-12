@@ -15,14 +15,7 @@ services:
       - "5001:5001"
     networks:
       - mynetwork
-    deploy:
-     resources :
-       reservations :
-           cpus: "0.25"
-          memory : 100M
-       limits:
-           cpus: "0.25"
-           memory: 200M
+
           
   book_service:
     image: dharmavaramteja/python:bookimage
