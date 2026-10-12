@@ -8,6 +8,8 @@ services:
       - mydata: /var/lib/sql/
     networks:
       - mynetwork
+    deploy:
+      replicas: 3
 
   auth_service:
     image: dharmavaramteja/python:authimage
@@ -15,6 +17,8 @@ services:
       - "5001:5001"
     networks:
       - mynetwork
+    deploy:
+      replicas: 3
 
           
   book_service:
@@ -23,6 +27,8 @@ services:
       - "5002:5002"
     networks:
       - mynetwork
+    deploy:
+      replicas: 2
            
   borrow_service:
     image: dharmavaramteja/python:borrowimage
@@ -30,16 +36,20 @@ services:
       - "5003:5003"
     networks:
       - mynetwork
+    deploy:
+      replicas: 3
 
   frontend:
     image: harmavaramteja/python:frontend
     ports:
       - "5000:5000"
+    deploy:
+      replicas: 2
    
 
 networks:
   mynetwork:
     driver: overlay
-voumes:
+volumes:
    mydata:
   
