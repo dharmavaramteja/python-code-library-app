@@ -1,40 +1,36 @@
----
 services:
   db:
-    image:  dharmavaramteja/python:db
-    deploy:
-      replicas: 1
+    image: dharmavaramteja/python:dbimage
+    environment:
+      MYSQL_ROOT_PASSWORD: root
     ports:
       - "3306:3306"
     networks:
       - mynetwork
 
   auth_service:
-    image:  dharmavaramteja/python:authimage
-    deploy:
-      replicas: 1
+    image: dharmavaramteja/python:authimage
+    environment:
+      DB_HOST: db
+      MYSQL_ROOT_PASSWORD: root
     ports:
       - "5001:5001"
     networks:
       - mynetwork
     depends_on:
       - db
-    
 
   book_service:
     image: dharmavaramteja/python:bookimage
-    deploy:
-      replicas: 1
     ports:
       - "5002:5002"
     networks:
       - mynetwork
     depends_on:
       - db
+
   borrow_service:
     image: dharmavaramteja/python:borrowimage
-    deploy:
-      replicas: 1
     ports:
       - "5003:5003"
     networks:
@@ -43,9 +39,7 @@ services:
       - db
 
   frontend:
-    image: dharmavaramteja/python:frontend
-    deploy:
-      replicas: 1
+    image: dharmavaramteja/python:frontendimage
     ports:
       - "5000:5000"
     networks:
@@ -57,4 +51,4 @@ services:
 
 networks:
   mynetwork:
-    driver: overlay
+    driver: bridge
